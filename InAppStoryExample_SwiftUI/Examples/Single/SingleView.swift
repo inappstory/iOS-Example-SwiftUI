@@ -12,13 +12,13 @@ struct SingleView: View
 {
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
     }
     
     var body: some View {
         VStack(alignment: .leading) {
             Button("Show Single Story") {
-                InAppStory.shared.showSingle(with: "701", delegate: SingleViewDelegate()) {}
+                InAppStory.shared.showSingle(with: "701", delegate: SingleViewDelegate.shared) {}
             }
             Spacer()
         }
@@ -35,6 +35,8 @@ struct SingleView_Previews: PreviewProvider {
 
 fileprivate class SingleViewDelegate: NSObject, InAppStoryDelegate
 {
+    static let shared: SingleViewDelegate = .init()
+    
     func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
     
     func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {

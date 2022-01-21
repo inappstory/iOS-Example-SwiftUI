@@ -10,11 +10,11 @@ import InAppStorySDK_SwiftUI
 
 struct CustomGoodsScreenView: View
 {
-    @State private var isAlertShowing: Bool = false
+    private var storyView: StoryViewSUI = .init(delegate: CustomGoodsViewDelegate.shared)
     
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
         
         // set custom GoodsWidget view
         InAppStory.shared.goodsView = GoodsView()
@@ -22,7 +22,7 @@ struct CustomGoodsScreenView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI(delegate: CustomCellGoodsViewDelegate(isAlertShowing: $isAlertShowing))
+            storyView
                 .create()
                 .frame(height: 150.0)
             Spacer()
@@ -38,15 +38,9 @@ struct CustomGoodsView_Previews: PreviewProvider {
     }
 }
 
-fileprivate class CustomCellGoodsViewDelegate: NSObject, InAppStoryDelegate
+fileprivate class CustomGoodsViewDelegate: NSObject, InAppStoryDelegate
 {
-    @Binding var isAlertShowing: Bool
-    
-    init(isAlertShowing: Binding<Bool>) {
-        self._isAlertShowing = isAlertShowing
-        
-        super.init()
-    }
+    static let shared: CustomGoodsViewDelegate = .init()
     
     func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
     

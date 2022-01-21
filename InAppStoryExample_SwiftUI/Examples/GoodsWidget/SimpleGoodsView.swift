@@ -10,27 +10,28 @@ import InAppStorySDK_SwiftUI
 
 struct SimpleGoodsView: View
 {
-    @State private var isAlertShowing: Bool = false
-    @State private var selectedItemSKU: String = ""
+    @StateObject fileprivate var simpleGoodsDelegate = SimpleGoodsViewDelegate.shared
+        
+    private var storyView: StoryViewSUI = .init(delegate: SimpleGoodsViewDelegate.shared)
     
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI(delegate: SimpleGoodsViewDelegate(isAlertShowing: $isAlertShowing, selectedItemSKU: $selectedItemSKU))
+            storyView
                 .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Simple GoodsWidget"))
-        .alert(isPresented: $isAlertShowing) {
+        .alert(isPresented: $simpleGoodsDelegate.isAlertShowing) {
             Alert(
                 title: Text("Select goods item"),
-                message: Text("Goods item has SKU: \(selectedItemSKU)"),
+                message: Text("Goods item has SKU: \(simpleGoodsDelegate.selectedItemSKU ?? "unknown")"),
                 dismissButton: .default(Text("Got it!"))
             )
         }
@@ -43,19 +44,19 @@ struct SimpleGoodsView_Previews: PreviewProvider {
     }
 }
 
-fileprivate class SimpleGoodsViewDelegate: NSObject, InAppStoryDelegate
+fileprivate class SimpleGoodsViewDelegate: NSObject, InAppStoryDelegate, ObservableObject
 {
-    @Binding var isAlertShowing: Bool
-    @Binding var selectedItemSKU: String
+    @Published var isContentExist = false
     
-    init(isAlertShowing: Binding<Bool>, selectedItemSKU: Binding<String>) {
-        self._isAlertShowing = isAlertShowing
-        self._selectedItemSKU = selectedItemSKU
-        
-        super.init()
+    @Published var isAlertShowing = false
+    @Published var selectedItemSKU: String?
+    
+    static let shared: SimpleGoodsViewDelegate = .init()
+    
+    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
+    {
+        self.isContentExist = isContent
     }
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
     
     func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
         if let url = URL(string: target) {

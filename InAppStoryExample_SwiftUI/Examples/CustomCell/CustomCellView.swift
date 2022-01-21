@@ -10,14 +10,16 @@ import InAppStorySDK_SwiftUI
 
 struct CustomCellView: View
 {
+    private var storyView: StoryViewSUI = .init(deleagateFlowLayout: CustomCellFlowDelegate.shared)
+    
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI(deleagateFlowLayout: CustomCellFlowDelegate.shared)
+            storyView
                 .setStoryCell(customCell: CustomStoryCell())
                 .create()
                 .frame(height: 150.0)
@@ -36,7 +38,7 @@ struct CustomCellView_Previews: PreviewProvider {
 
 fileprivate class CustomCellFlowDelegate: NSObject, StoryViewDelegateFlowLayout
 {
-    static let shared: CustomCellFlowDelegate = CustomCellFlowDelegate()
+    static let shared: CustomCellFlowDelegate = .init()
     
     func sizeForItem() -> CGSize {
         return CGSize(width: 120.0, height: 120.0)

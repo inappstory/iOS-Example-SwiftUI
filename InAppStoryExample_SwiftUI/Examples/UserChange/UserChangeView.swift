@@ -10,11 +10,11 @@ import InAppStorySDK_SwiftUI
 
 struct UserChangeView: View
 {
-    private var storyView: StoryViewSUI = StoryViewSUI()
+    private var storyView: StoryViewSUI = .init()
     
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
     }
     
     var body: some View {
@@ -25,7 +25,7 @@ struct UserChangeView: View
             HStack {
                 Spacer()
                 Button("Change user") {
-                    InAppStory.shared.settings = Settings(userID: "666")
+                    InAppStory.shared.settings = .init(userID: "666")
                     _ = storyView.refresh()
                 }
                 Spacer()

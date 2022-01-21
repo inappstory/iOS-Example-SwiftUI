@@ -10,9 +10,11 @@ import InAppStorySDK_SwiftUI
 
 struct TagsPlaceholdersView: View
 {
+    private var storyView: StoryViewSUI = .init()
+    
     init() {
         // setup InAppStorySDK for user with ID & tags
-        InAppStory.shared.settings = Settings(userID: "", tags: ["one", "two"])
+        InAppStory.shared.settings = .init(userID: "", tags: ["one", "two"])
         // add tags after set settings
         InAppStory.shared.addTags(["three", "four"])
         // remove tags if needed
@@ -27,7 +29,7 @@ struct TagsPlaceholdersView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI()
+            storyView
                 .create()
                 .frame(height: 150.0)
             Spacer()

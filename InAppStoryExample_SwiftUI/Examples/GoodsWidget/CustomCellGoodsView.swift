@@ -10,33 +10,34 @@ import InAppStorySDK_SwiftUI
 
 struct CustomCellGoodsView: View
 {
-    @State private var isAlertShowing: Bool = false
-    @State private var selectedItemSKU: String = ""
+    @StateObject fileprivate var customCellGoodsDelegate = CustomCellGoodsViewDelegate.shared
+        
+    private var storyView: StoryViewSUI = .init(delegate: CustomCellGoodsViewDelegate.shared)
     
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
         
         // set custom GoodsWidget cell realization
         InAppStory.shared.goodCell = CustomGoodCell()
         
         // set delegate for layout of GoodsWidget list
-        InAppStory.shared.goodsDelegateFlowLayout = CustomCellGoodsFlowDelegate()
+        InAppStory.shared.goodsDelegateFlowLayout = CustomCellGoodsFlowDelegate.shared
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI(delegate: CustomCellGoodsViewDelegate(isAlertShowing: $isAlertShowing, selectedItemSKU: $selectedItemSKU))
+            storyView
                 .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Custom Cell GoodsWidget"))
-        .alert(isPresented: $isAlertShowing) {
+        .alert(isPresented: $customCellGoodsDelegate.isAlertShowing) {
             Alert(
                 title: Text("Select goods item"),
-                message: Text("Goods item has SKU: \(selectedItemSKU)"),
+                message: Text("Goods item has SKU: \(customCellGoodsDelegate.selectedItemSKU ?? "unknown")"),
                 dismissButton: .default(Text("Got it!"))
             )
         }
@@ -49,19 +50,19 @@ struct CustomCellGoodsView_Previews: PreviewProvider {
     }
 }
 
-fileprivate class CustomCellGoodsViewDelegate: NSObject, InAppStoryDelegate
+fileprivate class CustomCellGoodsViewDelegate: NSObject, InAppStoryDelegate, ObservableObject
 {
-    @Binding var isAlertShowing: Bool
-    @Binding var selectedItemSKU: String
+    @Published var isContentExist = false
     
-    init(isAlertShowing: Binding<Bool>, selectedItemSKU: Binding<String>) {
-        self._isAlertShowing = isAlertShowing
-        self._selectedItemSKU = selectedItemSKU
-        
-        super.init()
+    @Published var isAlertShowing = false
+    @Published var selectedItemSKU: String?
+    
+    static let shared: CustomCellGoodsViewDelegate = .init()
+    
+    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
+    {
+        self.isContentExist = isContent
     }
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
     
     func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
         if let url = URL(string: target) {
@@ -100,6 +101,8 @@ fileprivate class CustomCellGoodsViewDelegate: NSObject, InAppStoryDelegate
 
 fileprivate class CustomCellGoodsFlowDelegate: NSObject, GoodsDelegateFlowLayout
 {
+    static let shared: CustomCellGoodsFlowDelegate = .init()
+    
     func sizeForItem() -> CGSize
     {
         return CGSize(width: 130.0, height: 130.0)

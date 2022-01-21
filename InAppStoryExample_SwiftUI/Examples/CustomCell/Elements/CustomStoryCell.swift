@@ -19,6 +19,8 @@ class CustomStoryCell: UICollectionViewCell
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
     
+    var storyID: String!
+    
     // player for video cover
     fileprivate let player = AVPlayer()
     fileprivate var playerLayer: AVPlayerLayer!

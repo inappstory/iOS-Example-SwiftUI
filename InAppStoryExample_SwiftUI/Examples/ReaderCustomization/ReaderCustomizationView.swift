@@ -10,11 +10,13 @@ import InAppStorySDK_SwiftUI
 
 struct ReaderCustomizationView: View
 {
-    @State private var isFavoriteSelected: Bool = false
+    @StateObject fileprivate var readerCustomViewDelegate = ReaderCustomStoryViewDelegate.shared
+    
+    private var storyView: StoryViewSUI = .init(delegate: ReaderCustomStoryViewDelegate.shared)
     
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
         // disable swipe gesture for reader closing
         InAppStory.shared.swipeToClose = false
         // disabling closing the reader after scrolling through the last story
@@ -58,14 +60,14 @@ struct ReaderCustomizationView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI(delegate: ReaderCustomStoryViewDelegate(isFavoriteSelected: $isFavoriteSelected))
+            storyView
                 .create()
-                .frame(height: 150.0)
+                .frame(height: $readerCustomViewDelegate.isContentExist.wrappedValue ? 150.0 : 0.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Reader Customization"))
-        .sheet(isPresented: $isFavoriteSelected) {
+        .sheet(isPresented: $readerCustomViewDelegate.favoriteSelected) {
             NavigationView {
                 StoryViewSUI(isFavorite: true)
                     .create()
@@ -81,17 +83,17 @@ struct ReaderCustomizationView_Previews: PreviewProvider {
     }
 }
 
-fileprivate class ReaderCustomStoryViewDelegate: NSObject, InAppStoryDelegate
+fileprivate class ReaderCustomStoryViewDelegate: NSObject, InAppStoryDelegate, ObservableObject
 {
-    @Binding var favoriteSelected: Bool
+    @Published var favoriteSelected = false
+    @Published var isContentExist = false
     
-    init(isFavoriteSelected: Binding<Bool>) {
-        self._favoriteSelected = isFavoriteSelected
-        
-        super.init()
+    static let shared: ReaderCustomStoryViewDelegate = .init()
+    
+    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
+    {
+        self.isContentExist = isContent
     }
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
     
     func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
         if let url = URL(string: target) {
@@ -100,6 +102,6 @@ fileprivate class ReaderCustomStoryViewDelegate: NSObject, InAppStoryDelegate
     }
     
     func favoriteCellDidSelect() {
-        favoriteSelected = true
+        favoriteSelected.toggle()
     }
 }

@@ -10,14 +10,16 @@ import InAppStorySDK_SwiftUI
 
 struct OnboardingView: View
 {
+    private var storyView: StoryViewSUI = .init()
+    
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI()
+            storyView
                 .create()
                 .frame(height: 150.0)
             Spacer()
@@ -25,7 +27,7 @@ struct OnboardingView: View
         .padding(.top)
         .navigationBarTitle(Text("Onboarding"))
         .onAppear() {
-            InAppStory.shared.showOnboardings(delegate: OnboardingViewDelegate()) {}
+            InAppStory.shared.showOnboardings(delegate: OnboardingViewDelegate.shared) {}
         }
     }
 }
@@ -38,6 +40,8 @@ struct OnboardingView_Previews: PreviewProvider {
 
 fileprivate class OnboardingViewDelegate: NSObject, InAppStoryDelegate
 {
+    static let shared: OnboardingViewDelegate = .init()
+    
     func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
     
     func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {

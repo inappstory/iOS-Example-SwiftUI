@@ -11,9 +11,11 @@ import InAppStorySDK_SwiftUI
 
 struct CellCustomizationView: View
 {
+    private var storyView: StoryViewSUI = .init(deleagateFlowLayout: FlowDelegate.shared)
+    
     init() {
         // setup InAppStorySDK for user with ID
-        InAppStory.shared.settings = Settings(userID: "")
+        InAppStory.shared.settings = .init(userID: "")
         
         // quality of cover images in cells
         InAppStory.shared.coverQuality = .high
@@ -29,7 +31,7 @@ struct CellCustomizationView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryViewSUI(deleagateFlowLayout: FlowDelegate.shared)
+            storyView
                 .create()
                 .frame(height: 150.0)
             Spacer()
@@ -47,7 +49,7 @@ struct CellCustomizationView_Previews: PreviewProvider {
 
 fileprivate class FlowDelegate: NSObject, StoryViewDelegateFlowLayout
 {
-    static let shared: FlowDelegate = FlowDelegate()
+    static let shared: FlowDelegate = .init()
     
     func sizeForItem() -> CGSize {
         return CGSize(width: 150.0, height: 150.0)

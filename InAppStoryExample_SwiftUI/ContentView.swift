@@ -12,7 +12,7 @@ struct ContentView: View
 {
     init() {
         // replace "<service_key>" with the key obtained in the console
-        InAppStory.shared.initWith(serviceKey: "<service_key>")
+        InAppStory.shared.initWith(serviceKey: "BHZsOnyoz1oF7b46lNlbBqV5ZskZsx5P", sandBox: true)
         
         setupNavigationBar()
     }
@@ -22,68 +22,68 @@ struct ContentView: View
             List {
                 Group {
                     NavigationLink(
-                        destination: SimpleIntegrationView(),
+                        destination: LazyView { SimpleIntegrationView() },
                         label: {
                             Text("Simple integration")
                         })
                     NavigationLink(
-                        destination: CellCustomizationView(),
+                        destination: LazyView { CellCustomizationView() },
                         label: {
                             Text("Cell customization")
                         })
                     NavigationLink(
-                        destination: CustomCellView(),
+                        destination: LazyView { CustomCellView() },
                         label: {
                             Text("Custom Cell")
                         })
                     NavigationLink(
-                        destination: FavoritesView(),
+                        destination: LazyView { FavoritesView() },
                         label: {
                             Text("Favorites")
                         })
                     NavigationLink(
-                        destination: ReaderCustomizationView(),
+                        destination: LazyView { ReaderCustomizationView() },
                         label: {
                             Text("Reader Customization")
                         })
                 }
                 Group {
                     NavigationLink(
-                        destination: OnboardingView(),
+                        destination: LazyView { OnboardingView() },
                         label: {
                             Text("Onboarding")
                         })
                     NavigationLink(
-                        destination: SingleView(),
+                        destination: LazyView { SingleView() },
                         label: {
                             Text("Single Story")
                         })
                 }
                 Group {
                     NavigationLink(
-                        destination: UserChangeView(),
+                        destination: LazyView { UserChangeView() },
                         label: {
                             Text("User Change")
                         })
                     NavigationLink(
-                        destination: TagsPlaceholdersView(),
+                        destination: LazyView { TagsPlaceholdersView() },
                         label: {
                             Text("Tags & Placeholders")
                         })
                 }
                 Group {
                     NavigationLink(
-                        destination: SimpleGoodsView(),
+                        destination: LazyView { SimpleGoodsView() },
                         label: {
                             Text("Simple GoodsWidget")
                         })
                     NavigationLink(
-                        destination: CustomCellGoodsView(),
+                        destination: LazyView { CustomCellGoodsView() },
                         label: {
                             Text("Custom Cell GoodsWidget")
                         })
                     NavigationLink(
-                        destination: CustomGoodsScreenView(),
+                        destination: LazyView { CustomGoodsScreenView() },
                         label: {
                             Text("Custom GoodsWidget")
                         })
@@ -166,5 +166,12 @@ struct TableRow: View
         HStack {
             Text(title)
         }
+    }
+}
+
+struct LazyView<Content: View>: View {
+    var content: () -> Content
+    var body: some View {
+       self.content()
     }
 }
