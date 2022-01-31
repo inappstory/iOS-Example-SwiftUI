@@ -20,7 +20,6 @@ struct UserChangeView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             HStack {
                 Spacer()
@@ -35,6 +34,9 @@ struct UserChangeView: View
         }
         .padding(.top)
         .navigationBarTitle(Text("User Change"))
+        .onAppear {
+            storyView.create()
+        }
     }
 }
 

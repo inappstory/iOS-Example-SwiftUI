@@ -20,13 +20,13 @@ struct OnboardingView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Onboarding"))
         .onAppear() {
+            storyView.create()
             InAppStory.shared.showOnboardings(delegate: OnboardingViewDelegate.shared) {}
         }
     }

@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct CustomCellGoodsView: View
 {
-    @StateObject fileprivate var customCellGoodsDelegate = CustomCellGoodsViewDelegate.shared
+    @ObservedObject fileprivate var customCellGoodsDelegate = CustomCellGoodsViewDelegate.shared
         
     private var storyView: StoryViewSUI = .init(delegate: CustomCellGoodsViewDelegate.shared)
     
@@ -28,12 +28,14 @@ struct CustomCellGoodsView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Custom Cell GoodsWidget"))
+        .onAppear {
+            storyView.create()
+        }
         .alert(isPresented: $customCellGoodsDelegate.isAlertShowing) {
             Alert(
                 title: Text("Select goods item"),

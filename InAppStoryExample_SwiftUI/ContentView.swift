@@ -12,7 +12,7 @@ struct ContentView: View
 {
     init() {
         // replace "<service_key>" with the key obtained in the console
-        InAppStory.shared.initWith(serviceKey: "<project-key>")
+        InAppStory.shared.initWith(serviceKey: "BHZsOnyoz1oF7b46lNlbBqV5ZskZsx5P", sandBox: true)
         
         setupNavigationBar()
     }

@@ -20,12 +20,14 @@ struct SimpleIntegrationView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Simple integration"))
+        .onAppear {
+            storyView.create()
+        }
     }
 }
 

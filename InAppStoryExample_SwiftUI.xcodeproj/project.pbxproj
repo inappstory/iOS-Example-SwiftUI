@@ -49,6 +49,7 @@
 		315B7EF2274E6CF8001EF549 /* CellCustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCustomizationView.swift; sourceTree = "<group>"; };
 		318E99A4274E7A1F00EEDB6C /* CustomCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellView.swift; sourceTree = "<group>"; };
 		318E99A6274E7C1D00EEDB6C /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		3195950A279AC168000309F0 /* InAppStorySDK_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = InAppStorySDK_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31BEC128274E873A004A17C7 /* ReaderCustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderCustomizationView.swift; sourceTree = "<group>"; };
 		31BEC12A274E8891004A17C7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		31BEC12C274E8AC0004A17C7 /* SingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleView.swift; sourceTree = "<group>"; };
@@ -254,6 +255,7 @@
 		DF5551F0AD51F4E6436F3286 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3195950A279AC168000309F0 /* InAppStorySDK_SwiftUI.framework */,
 				EDA1E5BA5F8732FFCA893507 /* Pods_InAppStoryExample_SwiftUI.framework */,
 			);
 			name = Frameworks;
@@ -270,7 +272,7 @@
 				315B7EBF274E5CC6001EF549 /* Sources */,
 				315B7EC0274E5CC6001EF549 /* Frameworks */,
 				315B7EC1274E5CC6001EF549 /* Resources */,
-				A5C378408B3805333C259CC3 /* [CP] Embed Pods Frameworks */,
+				049C83D8204962AC40C931EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -328,6 +330,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		049C83D8204962AC40C931EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		12464624620DDD1985C2395C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,23 +367,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A5C378408B3805333C259CC3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -525,7 +527,7 @@
 				DEVELOPMENT_TEAM = C84UG2WXC6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = InAppStoryExample_SwiftUI/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -549,7 +551,7 @@
 				DEVELOPMENT_TEAM = C84UG2WXC6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = InAppStoryExample_SwiftUI/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

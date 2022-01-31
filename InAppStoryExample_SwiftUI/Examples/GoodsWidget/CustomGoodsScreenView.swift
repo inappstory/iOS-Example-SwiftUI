@@ -23,12 +23,14 @@ struct CustomGoodsScreenView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Custom Cell GoodsWidget"))
+        .onAppear {
+            storyView.create()
+        }
     }
 }
 

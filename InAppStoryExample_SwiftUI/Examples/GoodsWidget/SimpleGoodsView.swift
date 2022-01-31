@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct SimpleGoodsView: View
 {
-    @StateObject fileprivate var simpleGoodsDelegate = SimpleGoodsViewDelegate.shared
+    @ObservedObject fileprivate var simpleGoodsDelegate = SimpleGoodsViewDelegate.shared
         
     private var storyView: StoryViewSUI = .init(delegate: SimpleGoodsViewDelegate.shared)
     
@@ -22,12 +22,14 @@ struct SimpleGoodsView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Simple GoodsWidget"))
+        .onAppear {
+            storyView.create()
+        }
         .alert(isPresented: $simpleGoodsDelegate.isAlertShowing) {
             Alert(
                 title: Text("Select goods item"),

@@ -32,12 +32,14 @@ struct CellCustomizationView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Cell customization"))
+        .onAppear {
+            storyView.create()
+        }
     }
 }
 

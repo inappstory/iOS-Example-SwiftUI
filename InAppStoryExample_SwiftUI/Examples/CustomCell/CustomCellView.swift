@@ -21,12 +21,14 @@ struct CustomCellView: View
         VStack(alignment: .leading) {
             storyView
                 .setStoryCell(customCell: CustomStoryCell())
-                .create()
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Custom Cell"))
+        .onAppear {
+            storyView.create()
+        }
     }
 }
 

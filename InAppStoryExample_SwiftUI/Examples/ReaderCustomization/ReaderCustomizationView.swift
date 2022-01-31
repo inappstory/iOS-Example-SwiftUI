@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct ReaderCustomizationView: View
 {
-    @StateObject fileprivate var readerCustomViewDelegate = ReaderCustomStoryViewDelegate.shared
+    @ObservedObject fileprivate var readerCustomViewDelegate = ReaderCustomStoryViewDelegate.shared
     
     private var storyView: StoryViewSUI = .init(delegate: ReaderCustomStoryViewDelegate.shared)
     
@@ -61,12 +61,14 @@ struct ReaderCustomizationView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: $readerCustomViewDelegate.isContentExist.wrappedValue ? 150.0 : 0.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Reader Customization"))
+        .onAppear {
+            storyView.create()
+        }
         .sheet(isPresented: $readerCustomViewDelegate.favoriteSelected) {
             NavigationView {
                 StoryViewSUI(isFavorite: true)

@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct FavoritesView: View
 {
-    @StateObject fileprivate var favoriteDelegate = FavoritesStoryViewDelegate.shared
+    @ObservedObject fileprivate var favoriteDelegate = FavoritesStoryViewDelegate.shared
         
     private var storyView: StoryViewSUI = .init(delegate: FavoritesStoryViewDelegate.shared)
     
@@ -24,9 +24,7 @@ struct FavoritesView: View
     var body: some View {
         VStack(alignment: .leading) {
             storyView
-                .create()
                 .frame(height: $favoriteDelegate.isContentExist.wrappedValue ? 150.0 : 0.0)
-            Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Favorites"))
@@ -36,6 +34,9 @@ struct FavoritesView: View
                     .create()
                     .navigationBarTitle(Text("Favorites"), displayMode: .inline)
             }
+        }
+        .onAppear {
+            storyView.create()
         }
     }
 }
@@ -55,7 +56,9 @@ fileprivate class FavoritesStoryViewDelegate: NSObject, InAppStoryDelegate, Obse
     
     func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
     {
-        self.isContentExist = isContent
+        if self.isContentExist != isContent {
+            self.isContentExist = isContent
+        }
     }
     
     func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
