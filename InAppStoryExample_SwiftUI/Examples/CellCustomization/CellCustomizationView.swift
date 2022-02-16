@@ -11,7 +11,7 @@ import InAppStorySDK_SwiftUI
 
 struct CellCustomizationView: View
 {
-    private var storyView: StoryViewSUI = .init(deleagateFlowLayout: FlowDelegate.shared)
+    @State var isStoryRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -31,41 +31,27 @@ struct CellCustomizationView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, refresh: $isStoryRefresh)
+                .itemsSize(CGSize(width: 150.0, height: 150.0))
+                .edgeInserts(UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 8.0))
+                .lineSpacing(8.0)
+                .interitemSpacing(8.0)
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Cell customization"))
-        .onAppear {
-            storyView.create()
-        }
     }
 }
 
 struct CellCustomizationView_Previews: PreviewProvider {
     static var previews: some View {
         CellCustomizationView()
-    }
-}
-
-fileprivate class FlowDelegate: NSObject, StoryViewDelegateFlowLayout
-{
-    static let shared: FlowDelegate = .init()
-    
-    func sizeForItem() -> CGSize {
-        return CGSize(width: 150.0, height: 150.0)
-    }
-    
-    func insetForSection() -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 8.0)
-    }
-    
-    func minimumLineSpacingForSection() -> CGFloat {
-        return 8.0
-    }
-    
-    func minimumInteritemSpacingForSection() -> CGFloat {
-        return 8.0
     }
 }

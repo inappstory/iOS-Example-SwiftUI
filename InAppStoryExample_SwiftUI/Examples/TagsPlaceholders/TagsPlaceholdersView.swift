@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct TagsPlaceholdersView: View
 {
-    private var storyView: StoryViewSUI = .init()
+    @State var isStoryRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID & tags
@@ -29,15 +29,18 @@ struct TagsPlaceholdersView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, refresh: $isStoryRefresh)
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Tags & Placeholders"))
-        .onAppear {
-            storyView.create()
-        }
     }
 }
 

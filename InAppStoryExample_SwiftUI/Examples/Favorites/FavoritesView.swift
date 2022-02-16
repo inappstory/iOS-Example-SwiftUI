@@ -10,9 +10,9 @@ import InAppStorySDK_SwiftUI
 
 struct FavoritesView: View
 {
-    @ObservedObject fileprivate var favoriteDelegate = FavoritesStoryViewDelegate.shared
-        
-    private var storyView: StoryViewSUI = .init(delegate: FavoritesStoryViewDelegate.shared)
+    @State var isFavoriteSelected: Bool = false
+    @State var isStoryRefresh: Bool = false
+    @State var isFavoriteRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -23,20 +23,24 @@ struct FavoritesView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
-                .frame(height: $favoriteDelegate.isContentExist.wrappedValue ? 150.0 : 0.0)
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, favoritesSelect: {
+                isFavoriteSelected = true
+            }, refresh: $isStoryRefresh)
+                .frame(height: 150.0)
         }
         .padding(.top)
         .navigationBarTitle(Text("Favorites"))
-        .sheet(isPresented: $favoriteDelegate.favoriteSelected) {
+        .sheet(isPresented: $isFavoriteSelected) {
             NavigationView {
-                StoryViewSUI(isFavorite: true)
-                    .create()
+                StoryListView(isFavorite: true, refresh: $isFavoriteRefresh)
                     .navigationBarTitle(Text("Favorites"), displayMode: .inline)
             }
-        }
-        .onAppear {
-            storyView.create()
         }
     }
 }
@@ -44,30 +48,5 @@ struct FavoritesView: View
 struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {
         FavoritesView()
-    }
-}
-
-fileprivate class FavoritesStoryViewDelegate: NSObject, InAppStoryDelegate, ObservableObject
-{
-    @Published var favoriteSelected = false
-    @Published var isContentExist = false
-    
-    static let shared: FavoritesStoryViewDelegate = .init()
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
-    {
-        if self.isContentExist != isContent {
-            self.isContentExist = isContent
-        }
-    }
-    
-    func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
-        if let url = URL(string: target) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    func favoriteCellDidSelect() {
-        favoriteSelected.toggle()
     }
 }

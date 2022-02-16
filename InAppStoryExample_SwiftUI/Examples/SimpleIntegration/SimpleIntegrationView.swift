@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct SimpleIntegrationView: View
 {
-    private var storyView: StoryViewSUI = .init()
+    @State var isStoryRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -19,15 +19,18 @@ struct SimpleIntegrationView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, refresh: $isStoryRefresh)
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Simple integration"))
-        .onAppear {
-            storyView.create()
-        }
     }
 }
 

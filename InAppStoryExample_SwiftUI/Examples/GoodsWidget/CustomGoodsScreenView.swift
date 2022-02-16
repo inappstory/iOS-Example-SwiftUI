@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct CustomGoodsScreenView: View
 {
-    private var storyView: StoryViewSUI = .init(delegate: CustomGoodsViewDelegate.shared)
+    @State var isStoryRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -22,50 +22,43 @@ struct CustomGoodsScreenView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, getGoodsObjects: { skus, complete in
+                complete(.success(getObjects(skus: skus)))
+              }, refresh: $isStoryRefresh)
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Custom Cell GoodsWidget"))
-        .onAppear {
-            storyView.create()
+    }
+}
+
+extension CustomGoodsScreenView
+{
+    fileprivate func getObjects(skus: Array<String>) -> Array<GoodsObjectProtocol>
+    {
+        var items: Array<GoodsObjectProtocol> = []
+        for sku in skus {
+            items.append(GoodObject(sku: sku,
+                                    title: sku,
+                                    subtitle: sku,
+                                    imageURL: nil,
+                                    price: nil,
+                                    discount: nil))
         }
+        
+        return items
     }
 }
 
 struct CustomGoodsView_Previews: PreviewProvider {
     static var previews: some View {
         CustomGoodsScreenView()
-    }
-}
-
-fileprivate class CustomGoodsViewDelegate: NSObject, InAppStoryDelegate
-{
-    static let shared: CustomGoodsViewDelegate = .init()
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
-    
-    func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
-        if let url = URL(string: target) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    func getGoodsObject(with skus: Array<String>, complete: @escaping GoodsComplete) {
-        var goodsArray: Array<GoodObject> = []
-        
-        for (i, sku) in skus.enumerated() {
-            let goodsObject = GoodObject(sku: sku,
-                                         title: "title of item - \(i)",
-                                         subtitle: "subtitle of item - \(i)",
-                                         imageURL: nil,
-                                         price: "\(i * i)$",
-                                         discount: "")
-            
-            goodsArray.append(goodsObject)
-        }
-        
-        complete(.success(goodsArray))
     }
 }

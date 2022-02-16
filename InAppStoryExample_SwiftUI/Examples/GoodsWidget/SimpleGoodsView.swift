@@ -10,9 +10,10 @@ import InAppStorySDK_SwiftUI
 
 struct SimpleGoodsView: View
 {
-    @ObservedObject fileprivate var simpleGoodsDelegate = SimpleGoodsViewDelegate.shared
-        
-    private var storyView: StoryViewSUI = .init(delegate: SimpleGoodsViewDelegate.shared)
+    @State var isAlertShowing: Bool = false
+    @State var isStoryRefresh: Bool = false
+    
+    @State var selectedItemSKU: String = ""
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -21,76 +22,55 @@ struct SimpleGoodsView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, getGoodsObjects: { skus, complete in
+                complete(.success(getObjects(skus: skus)))
+              }, selectGoodsItem: { item in
+                  InAppStory.shared.closeReader {
+                      selectedItemSKU = item.sku as String
+                      isAlertShowing = true
+                  }
+              }, refresh: $isStoryRefresh)
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Simple GoodsWidget"))
-        .onAppear {
-            storyView.create()
-        }
-        .alert(isPresented: $simpleGoodsDelegate.isAlertShowing) {
+        .alert(isPresented: $isAlertShowing) {
             Alert(
                 title: Text("Select goods item"),
-                message: Text("Goods item has SKU: \(simpleGoodsDelegate.selectedItemSKU ?? "unknown")"),
+                message: Text("Goods item has SKU: \(selectedItemSKU)"),
                 dismissButton: .default(Text("Got it!"))
             )
         }
     }
 }
 
-struct SimpleGoodsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SimpleGoodsView()
+extension SimpleGoodsView
+{
+    fileprivate func getObjects(skus: Array<String>) -> Array<GoodsObjectProtocol>
+    {
+        var items: Array<GoodsObjectProtocol> = []
+        for sku in skus {
+            items.append(GoodObject(sku: sku,
+                                    title: sku,
+                                    subtitle: sku,
+                                    imageURL: nil,
+                                    price: nil,
+                                    discount: nil))
+        }
+        
+        return items
     }
 }
 
-fileprivate class SimpleGoodsViewDelegate: NSObject, InAppStoryDelegate, ObservableObject
-{
-    @Published var isContentExist = false
-    
-    @Published var isAlertShowing = false
-    @Published var selectedItemSKU: String?
-    
-    static let shared: SimpleGoodsViewDelegate = .init()
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
-    {
-        self.isContentExist = isContent
-    }
-    
-    func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
-        if let url = URL(string: target) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    func getGoodsObject(with skus: Array<String>, complete: @escaping GoodsComplete) {
-        var goodsArray: Array<GoodObject> = []
-        
-        for (i, sku) in skus.enumerated() {
-            let goodsObject = GoodObject(sku: sku,
-                                         title: "title of item - \(i)",
-                                         subtitle: "subtitle of item - \(i)",
-                                         imageURL: nil,
-                                         price: "\(i * i)$",
-                                         discount: "")
-            
-            goodsArray.append(goodsObject)
-        }
-        
-        complete(.success(goodsArray))
-    }
-    
-    func goodItemSelected(_ item: GoodsObjectProtocol, with storyType: StoriesType) {
-        InAppStory.shared.closeReader { [weak self] in
-            guard let weakSelf = self else {
-                return
-            }
-            
-            weakSelf.selectedItemSKU = item.sku
-            weakSelf.isAlertShowing = true
-        }
+struct SimpleGoodsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SimpleGoodsView()
     }
 }

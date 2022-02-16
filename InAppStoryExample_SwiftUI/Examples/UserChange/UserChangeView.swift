@@ -10,7 +10,7 @@ import InAppStorySDK_SwiftUI
 
 struct UserChangeView: View
 {
-    private var storyView: StoryViewSUI = .init()
+    @State var isStoryRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -19,13 +19,19 @@ struct UserChangeView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, refresh: $isStoryRefresh)
                 .frame(height: 150.0)
             HStack {
                 Spacer()
                 Button("Change user") {
                     InAppStory.shared.settings = .init(userID: "666")
-                    _ = storyView.refresh()
+                    isStoryRefresh.toggle()
                 }
                 Spacer()
             }
@@ -34,9 +40,6 @@ struct UserChangeView: View
         }
         .padding(.top)
         .navigationBarTitle(Text("User Change"))
-        .onAppear {
-            storyView.create()
-        }
     }
 }
 

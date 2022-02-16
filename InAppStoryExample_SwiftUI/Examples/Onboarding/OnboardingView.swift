@@ -10,7 +10,8 @@ import InAppStorySDK_SwiftUI
 
 struct OnboardingView: View
 {
-    private var storyView: StoryViewSUI = .init()
+    @State var isOnboardingPresent: Bool = false
+    @State var isStoryRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -19,34 +20,24 @@ struct OnboardingView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
+            StoryListView(refresh: $isStoryRefresh)
                 .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Onboarding"))
         .onAppear() {
-            storyView.create()
-            InAppStory.shared.showOnboardings(delegate: OnboardingViewDelegate.shared) {}
+            isOnboardingPresent = true
         }
+        .onboardingStories(isPresented: $isOnboardingPresent,
+                           onAction: { target, actionType in
+            isOnboardingPresent = false // may call InAppStory.shared.closeReader()
+        })
     }
 }
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingView()
-    }
-}
-
-fileprivate class OnboardingViewDelegate: NSObject, InAppStoryDelegate
-{
-    static let shared: OnboardingViewDelegate = .init()
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType) {}
-    
-    func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
-        if let url = URL(string: target) {
-            UIApplication.shared.open(url)
-        }
     }
 }

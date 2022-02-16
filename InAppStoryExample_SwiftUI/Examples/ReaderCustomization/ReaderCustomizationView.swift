@@ -10,9 +10,9 @@ import InAppStorySDK_SwiftUI
 
 struct ReaderCustomizationView: View
 {
-    @ObservedObject fileprivate var readerCustomViewDelegate = ReaderCustomStoryViewDelegate.shared
-    
-    private var storyView: StoryViewSUI = .init(delegate: ReaderCustomStoryViewDelegate.shared)
+    @State var isFavoriteSelected: Bool = false
+    @State var isStoryRefresh: Bool = false
+    @State var isFavoriteRefresh: Bool = false
     
     init() {
         // setup InAppStorySDK for user with ID
@@ -60,19 +60,23 @@ struct ReaderCustomizationView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            storyView
-                .frame(height: $readerCustomViewDelegate.isContentExist.wrappedValue ? 150.0 : 0.0)
+            StoryListView(onAction: { target in
+                InAppStory.shared.closeReader {
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+              }, favoritesSelect: {
+                isFavoriteSelected = true
+            }, refresh: $isStoryRefresh)
+                .frame(height: 150.0)
             Spacer()
         }
         .padding(.top)
         .navigationBarTitle(Text("Reader Customization"))
-        .onAppear {
-            storyView.create()
-        }
-        .sheet(isPresented: $readerCustomViewDelegate.favoriteSelected) {
+        .sheet(isPresented: $isFavoriteSelected) {
             NavigationView {
-                StoryViewSUI(isFavorite: true)
-                    .create()
+                StoryListView(isFavorite: true, refresh: $isFavoriteRefresh)
                     .navigationBarTitle(Text("Favorites"), displayMode: .inline)
             }
         }
@@ -82,28 +86,5 @@ struct ReaderCustomizationView: View
 struct ReaderCustomizationView_Previews: PreviewProvider {
     static var previews: some View {
         ReaderCustomizationView()
-    }
-}
-
-fileprivate class ReaderCustomStoryViewDelegate: NSObject, InAppStoryDelegate, ObservableObject
-{
-    @Published var favoriteSelected = false
-    @Published var isContentExist = false
-    
-    static let shared: ReaderCustomStoryViewDelegate = .init()
-    
-    func storiesDidUpdated(isContent: Bool, from storyType: StoriesType)
-    {
-        self.isContentExist = isContent
-    }
-    
-    func storyReader(actionWith target: String, for type: ActionType, from storyType: StoriesType) {
-        if let url = URL(string: target) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    func favoriteCellDidSelect() {
-        favoriteSelected.toggle()
     }
 }
