@@ -27,9 +27,12 @@ struct SingleView: View
         }
         .padding(.top)
         .navigationBarTitle(Text("Single Story"))
-        .singleStory(storyID: "701", isPresented: $isSinglePresent, onAction: { target, actionType  in
-            isSinglePresent = false // may call InAppStory.shared.closeReader()
-        })
+        .singleStory(
+            storyID: "701",
+            isPresented: $isSinglePresent,
+            onAction: { target, actionType  in
+                isSinglePresent = false // may call InAppStory.shared.closeReader()
+            })
     }
 }
 

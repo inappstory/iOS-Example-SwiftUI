@@ -29,10 +29,11 @@ struct OnboardingView: View
         .onAppear() {
             isOnboardingPresent = true
         }
-        .onboardingStories(isPresented: $isOnboardingPresent,
-                           onAction: { target, actionType in
-            isOnboardingPresent = false // may call InAppStory.shared.closeReader()
-        })
+        .onboardingStories(
+            isPresented: $isOnboardingPresent,
+            onAction: { target, actionType in
+                isOnboardingPresent = false // may call InAppStory.shared.closeReader()
+            })
     }
 }
 

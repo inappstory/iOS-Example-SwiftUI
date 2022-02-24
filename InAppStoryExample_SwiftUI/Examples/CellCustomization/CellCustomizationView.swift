@@ -31,13 +31,14 @@ struct CellCustomizationView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryListView(onAction: { target in
-                InAppStory.shared.closeReader {
-                    if let url = URL(string: target) {
-                        UIApplication.shared.open(url)
+            StoryListView(
+                onAction: { target, actionType in
+                    InAppStory.shared.closeReader {
+                        if let url = URL(string: target) {
+                            UIApplication.shared.open(url)
+                        }
                     }
-                }
-              }, refresh: $isStoryRefresh)
+                }, refresh: $isStoryRefresh)
                 .itemsSize(CGSize(width: 150.0, height: 150.0))
                 .edgeInserts(UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 8.0))
                 .lineSpacing(8.0)

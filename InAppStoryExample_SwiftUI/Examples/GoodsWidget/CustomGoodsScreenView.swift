@@ -22,7 +22,7 @@ struct CustomGoodsScreenView: View
     
     var body: some View {
         VStack(alignment: .leading) {
-            StoryListView(onAction: { target in
+            StoryListView(onAction: { target, actionType in
                 InAppStory.shared.closeReader {
                     if let url = URL(string: target) {
                         UIApplication.shared.open(url)
