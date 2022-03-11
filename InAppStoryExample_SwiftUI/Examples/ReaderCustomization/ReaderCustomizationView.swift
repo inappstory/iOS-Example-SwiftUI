@@ -43,6 +43,8 @@ struct ReaderCustomizationView: View
         InAppStory.shared.soundImage = UIImage(named: "sound")!
         InAppStory.shared.soundSelectedImage = UIImage(named: "soundSelected")!
         
+        InAppStory.shared.closeReaderImage = UIImage(named: "closeIcon")!
+        
         InAppStory.shared.refreshImage = UIImage(named: "refresh")!
         // enable like function in reader
         InAppStory.shared.likePanel = true
