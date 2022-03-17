@@ -32,6 +32,7 @@ struct CellCustomizationView: View
     var body: some View {
         VStack(alignment: .leading) {
             StoryListView(
+                // actionTypes is .button, .game, .deeplink, .swipe
                 onAction: { target, actionType in
                     InAppStory.shared.closeReader {
                         if let url = URL(string: target) {
