@@ -88,6 +88,20 @@ struct ContentView: View
                             Text("Custom GoodsWidget")
                         })
                 }
+                Group {
+                    NavigationLink(
+                        destination: LazyView { MultifeedView() },
+                        label: {
+                            Text("Multi-feed")
+                        }
+                    )
+                    NavigationLink(
+                        destination: LazyView { MultifeedOnboardingView() },
+                        label: {
+                            Text("Multi-feed onboarding")
+                        }
+                    )
+                }
             }
             .navigationBarTitle(Text("Samples"), displayMode: .inline)
             .onAppear() {

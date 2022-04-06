@@ -24,3 +24,5 @@ To get started, you need:
 - **SimpleGoodsView** - simple GoodsWidget integration
 - **CustomCellGoodsView** - custom GoodsWidget cell
 - **CustomGoodsView** - custom GoodsWidget view
+- **MultifeedView** - Multi-feed usage example
+- **MultifeedOnboardingView** - example for onboarding with multi-feed

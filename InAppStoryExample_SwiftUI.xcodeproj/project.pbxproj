@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,8 @@
 		31BEC133274E904D004A17C7 /* SimpleGoodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEC132274E904D004A17C7 /* SimpleGoodsView.swift */; };
 		31BEC135274E9527004A17C7 /* CustomCellGoodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEC134274E9527004A17C7 /* CustomCellGoodsView.swift */; };
 		31BEC137274E9806004A17C7 /* CustomGoodsScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEC136274E9806004A17C7 /* CustomGoodsScreenView.swift */; };
+		31C08FAD27FDC96500D91DC8 /* MultifeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C08FAC27FDC96500D91DC8 /* MultifeedView.swift */; };
+		31C08FAF27FDCBC600D91DC8 /* MultifeedOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C08FAE27FDCBC600D91DC8 /* MultifeedOnboardingView.swift */; };
 		C2D74F57F344A7C8D47686D2 /* Pods_InAppStoryExample_SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA1E5BA5F8732FFCA893507 /* Pods_InAppStoryExample_SwiftUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,9 @@
 		31BEC132274E904D004A17C7 /* SimpleGoodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleGoodsView.swift; sourceTree = "<group>"; };
 		31BEC134274E9527004A17C7 /* CustomCellGoodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellGoodsView.swift; sourceTree = "<group>"; };
 		31BEC136274E9806004A17C7 /* CustomGoodsScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGoodsScreenView.swift; sourceTree = "<group>"; };
+		31C08FA727FDC7A600D91DC8 /* InAppStorySDK_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = InAppStorySDK_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31C08FAC27FDC96500D91DC8 /* MultifeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultifeedView.swift; sourceTree = "<group>"; };
+		31C08FAE27FDCBC600D91DC8 /* MultifeedOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultifeedOnboardingView.swift; sourceTree = "<group>"; };
 		76B82BCD7665F0F2C9450FCC /* Pods-InAppStoryExample_SwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InAppStoryExample_SwiftUI.release.xcconfig"; path = "Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		DD15BF8C6B135F37AE74022A /* Pods-InAppStoryExample_SwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InAppStoryExample_SwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA1E5BA5F8732FFCA893507 /* Pods_InAppStoryExample_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InAppStoryExample_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +132,7 @@
 				315B7EDB274E6493001EF549 /* Single */,
 				315B7ED7274E6493001EF549 /* UserChange */,
 				315B7EDC274E6493001EF549 /* TagsPlaceholders */,
+				31C08FAB27FDC91F00D91DC8 /* Multifeed */,
 				315B7EDE274E6493001EF549 /* GoodsWidget */,
 			);
 			path = Examples;
@@ -243,6 +249,15 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		31C08FAB27FDC91F00D91DC8 /* Multifeed */ = {
+			isa = PBXGroup;
+			children = (
+				31C08FAC27FDC96500D91DC8 /* MultifeedView.swift */,
+				31C08FAE27FDCBC600D91DC8 /* MultifeedOnboardingView.swift */,
+			);
+			path = Multifeed;
+			sourceTree = "<group>";
+		};
 		B2E8D29622089A3CB873D678 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +270,7 @@
 		DF5551F0AD51F4E6436F3286 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31C08FA727FDC7A600D91DC8 /* InAppStorySDK_SwiftUI.framework */,
 				3195950A279AC168000309F0 /* InAppStorySDK_SwiftUI.framework */,
 				EDA1E5BA5F8732FFCA893507 /* Pods_InAppStoryExample_SwiftUI.framework */,
 			);
@@ -272,7 +288,7 @@
 				315B7EBF274E5CC6001EF549 /* Sources */,
 				315B7EC0274E5CC6001EF549 /* Frameworks */,
 				315B7EC1274E5CC6001EF549 /* Resources */,
-				049C83D8204962AC40C931EE /* [CP] Embed Pods Frameworks */,
+				B11D58E0EEA35D1223A2B419 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -330,23 +346,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		049C83D8204962AC40C931EE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		12464624620DDD1985C2395C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -369,6 +368,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B11D58E0EEA35D1223A2B419 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InAppStoryExample_SwiftUI/Pods-InAppStoryExample_SwiftUI-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -377,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				318E99A7274E7C1D00EEDB6C /* FavoritesView.swift in Sources */,
+				31C08FAF27FDCBC600D91DC8 /* MultifeedOnboardingView.swift in Sources */,
 				31BEC133274E904D004A17C7 /* SimpleGoodsView.swift in Sources */,
 				31BEC129274E873A004A17C7 /* ReaderCustomizationView.swift in Sources */,
 				315B7EC9274E5CC6001EF549 /* ContentView.swift in Sources */,
@@ -390,6 +407,7 @@
 				31BEC12F274E8DD8004A17C7 /* UserChangeView.swift in Sources */,
 				315B7EF1274E65DF001EF549 /* UIImageView+CS.swift in Sources */,
 				315B7EE9274E6493001EF549 /* CustomGoodCell.swift in Sources */,
+				31C08FAD27FDC96500D91DC8 /* MultifeedView.swift in Sources */,
 				31BEC12B274E8891004A17C7 /* OnboardingView.swift in Sources */,
 				315B7EEC274E6493001EF549 /* CustomStoryCell.swift in Sources */,
 				315B7EEE274E64F5001EF549 /* SimpleIntegrationView.swift in Sources */,
