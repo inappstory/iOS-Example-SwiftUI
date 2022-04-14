@@ -12,7 +12,7 @@ struct ContentView: View
 {
     init() {
         // replace "<service_key>" with the key obtained in the console
-        InAppStory.shared.initWith(serviceKey: "<service_key>", sandBox: true)
+        InAppStory.shared.initWith(serviceKey: "BHZsOnyoz1oF7b46lNlbBqV5ZskZsx5P", sandBox: true)
         
         setupNavigationBar()
     }
@@ -90,6 +90,14 @@ struct ContentView: View
                 }
                 Group {
                     NavigationLink(
+                        destination: LazyView { PreloaderView() },
+                        label: {
+                            Text("Preloader")
+                        }
+                    )
+                }
+                Group {
+                    NavigationLink(
                         destination: LazyView { MultifeedView() },
                         label: {
                             Text("Multi-feed")
@@ -149,9 +157,7 @@ extension ContentView
         InAppStory.shared.placeholderElementColor = .white
         InAppStory.shared.placeholderBackgroundColor = .clear
         
-        InAppStory.shared.likePanel = false
-        InAppStory.shared.favoritePanel = false
-        InAppStory.shared.sharePanel = false
+        InAppStory.shared.panelSettings = PanelSettings()
         
         InAppStory.shared.placeholderView = nil
         InAppStory.shared.gamePlaceholderView = nil

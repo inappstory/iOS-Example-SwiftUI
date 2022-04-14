@@ -18,7 +18,7 @@ struct FavoritesView: View
         // setup InAppStorySDK for user with ID
         InAppStory.shared.settings = .init(userID: "")
         // enable favorite button in reader & showinng favorite cell in the end of list
-        InAppStory.shared.favoritePanel = true
+        InAppStory.shared.panelSettings = PanelSettings(favorites: true)
     }
     
     var body: some View {

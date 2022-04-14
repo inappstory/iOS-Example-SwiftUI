@@ -26,3 +26,4 @@ To get started, you need:
 - **CustomGoodsView** - custom GoodsWidget view
 - **MultifeedView** - Multi-feed usage example
 - **MultifeedOnboardingView** - example for onboarding with multi-feed
+- **PreloaderView** - placeholder (skeleton) example for StoryView

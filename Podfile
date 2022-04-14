@@ -5,7 +5,7 @@ target 'InAppStoryExample_SwiftUI' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'InAppStory_SwiftUI', :git => 'https://github.com/inappstory/ios-sdk.git', :tag => '1.15.0-SwiftUI'
+  pod 'InAppStory_SwiftUI', :git => 'https://github.com/inappstory/ios-sdk.git', :tag => '1.15.1-SwiftUI'
 
 
 end
