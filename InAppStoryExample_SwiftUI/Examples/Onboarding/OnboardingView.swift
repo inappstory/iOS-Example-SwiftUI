@@ -30,6 +30,7 @@ struct OnboardingView: View
             isOnboardingPresent = true
         }
         .onboardingStories(
+            limit: 2,
             isPresented: $isOnboardingPresent,
             onAction: { target, actionType in
                 isOnboardingPresent = false // may call InAppStory.shared.closeReader()
