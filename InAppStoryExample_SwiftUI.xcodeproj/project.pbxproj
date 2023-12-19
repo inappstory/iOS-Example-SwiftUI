@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -212,9 +212,9 @@
 		315B7EDF274E6493001EF549 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				315B7EE0274E6493001EF549 /* CustomGoodCell.xib */,
-				315B7EE1274E6493001EF549 /* CustomGoodCell.swift */,
 				315B7EE2274E6493001EF549 /* GoodsView.swift */,
+				315B7EE1274E6493001EF549 /* CustomGoodCell.swift */,
+				315B7EE0274E6493001EF549 /* CustomGoodCell.xib */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -239,8 +239,8 @@
 		315B7EE5274E6493001EF549 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				315B7EE6274E6493001EF549 /* CustomStoryCell.xib */,
 				315B7EE7274E6493001EF549 /* CustomStoryCell.swift */,
+				315B7EE6274E6493001EF549 /* CustomStoryCell.xib */,
 			);
 			path = Elements;
 			sourceTree = "<group>";

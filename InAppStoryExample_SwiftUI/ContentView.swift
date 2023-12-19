@@ -2,8 +2,6 @@
 //  ContentView.swift
 //  InAppStoryExample_SwiftUI
 //
-//  Created by StPashik on 24.11.2021.
-//
 
 import SwiftUI
 import InAppStorySDK_SwiftUI
@@ -12,7 +10,7 @@ struct ContentView: View
 {
     init() {
         // replace "<service_key>" with the key obtained in the console
-        InAppStory.shared.initWith(serviceKey: "BHZsOnyoz1oF7b46lNlbBqV5ZskZsx5P", sandBox: true)
+        InAppStory.shared.initWith(serviceKey: "BHZsOnyoz1oF7b46lNlbBqV5ZskZsx5P")
         
         setupNavigationBar()
     }
