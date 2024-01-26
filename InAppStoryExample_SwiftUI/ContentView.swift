@@ -10,7 +10,7 @@ struct ContentView: View
 {
     init() {
         // replace "<service_key>" with the key obtained in the console
-        InAppStory.shared.initWith(serviceKey: "BHZsOnyoz1oF7b46lNlbBqV5ZskZsx5P")
+        InAppStory.shared.initWith(serviceKey: "<service_key>")
         
         setupNavigationBar()
     }
@@ -38,6 +38,11 @@ struct ContentView: View
                         destination: LazyView { FavoritesView() },
                         label: {
                             Text("Favorites")
+                        })
+                    NavigationLink(
+                        destination: LazyView { CustomSharingView() },
+                        label: {
+                            Text("Custom Sharing view")
                         })
                     NavigationLink(
                         destination: LazyView { ReaderCustomizationView() },

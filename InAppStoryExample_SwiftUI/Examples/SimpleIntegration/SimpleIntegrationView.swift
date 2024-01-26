@@ -3,7 +3,7 @@
 //  InAppStoryExample_SwiftUI
 //
 
-import SwiftUI
+import SwiftUI 
 import InAppStorySDK_SwiftUI
 
 /// Example of a simple stories list integration
